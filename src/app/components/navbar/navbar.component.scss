@@ -1,0 +1,9 @@
+@use '@angular/material' as mat;
+
+$my-palette: mat.$indigo-palette;
+
+.example-action-button {
+    margin-top: 8px;
+    margin-right: 8px;
+    //background-color: $my-palette;
+  }
