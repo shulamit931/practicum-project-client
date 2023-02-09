@@ -72,9 +72,9 @@
     
         <div>
             <label for="tz">id number</label>
-            <input type="text" required [(ngModel)]="child.Tz" name="childTz" #childTz="ngModel">
+            <input type="text" pattern="[0-9]{9}" required [(ngModel)]="child.Tz" name="childTz" #childTz="ngModel">
             <div [hidden]="childTz.valid || !childTz.touched">
-                id number is required
+                id number is required and must has 9 numbers
             </div>
         </div>
     
@@ -98,5 +98,22 @@
    
 </form>
 
-<mat-progress-bar mode="indeterminate" *ngIf="download"></mat-progress-bar>
+<!-- <mat-progress-bar mode="indeterminate" *ngIf="download"></mat-progress-bar> -->
 
+<!-- <table id="excel-table">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Email</th>
+    </tr>
+    <tr *ngFor="let item of result">
+      <td>{{item.Tz}}</td>
+      <td>{{item.FirstName}}</td>
+      <td>{{item.LastName}}</td>
+      <td>{{item.BirthDate}}</td>
+    </tr>
+  </table>
+
+ 
+ -->
