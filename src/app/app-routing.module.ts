@@ -6,7 +6,7 @@ import { MyFormComponent } from './components/my-form/my-form.component';
 const routes: Routes = [
   {path:"guidelines" ,component:GuidelinesComponent},
   {path:"myForm",component:MyFormComponent},
-  {path:"*",redirectTo:"guidelines"}
+  {path:"",redirectTo:"guidelines",pathMatch:"full"}
 ];
 
 @NgModule({

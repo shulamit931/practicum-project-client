@@ -1,0 +1,22 @@
+.form{
+    border: black solid 2px;
+    box-shadow: 1 1 1 1 peru;
+    width: max-content;
+    padding: 3px;
+    *{
+        margin: 3px;
+        
+    }
+}
+.ng-invalid.ng-touched:not(form){
+    border: solid red 1px;
+    border-radius: 12;
+}
+
+.error{
+    color: red;
+}
+.form{
+    margin: 2vh auto;
+}
+

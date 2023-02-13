@@ -1,9 +1,13 @@
-@use '@angular/material' as mat;
-
-$my-palette: mat.$indigo-palette;
-
-.example-action-button {
-    margin-top: 8px;
-    margin-right: 8px;
-    //background-color: $my-palette;
+nav {
+  display: flex;
+  height: 8%;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+box-shadow: 1px 1px 1px 1px rgb(77, 76, 74);
+  * {
+    flex: 1;
+    font-size: 4vh;
+    text-decoration: none;
   }
+}

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ChildModel } from 'src/app/models/Child';
@@ -7,6 +7,7 @@ import { EHMO, Ekind, UserModel } from 'src/app/models/User';
 import { DataService } from 'src/app/data.service';
 
 import * as saver from 'file-saver';
+import { Result } from 'src/app/models/resultModel';
 
 @Component({
   selector: 'app-my-form',
@@ -20,9 +21,9 @@ export class MyFormComponent implements OnInit {
   children: ChildModel[] = [];
   HMO = Object.entries(EHMO).slice(0, Object.entries(EHMO).length / 2);
   Kind = Object.entries(Ekind).slice(0, Object.entries(Ekind).length / 2);
-  result: UserModel[] = [];
+  result: Result[] = [];
   download: boolean = false;
-
+  error: any ;
 
 
   constructor(private httpClient: HttpClient, private dataService: DataService) { }
@@ -39,12 +40,16 @@ export class MyFormComponent implements OnInit {
     this.user.HMO = +this.user.HMO;
     this.user.Kind = +this.user.Kind;
     console.log(this.user);
-    this.httpClient.post<UserModel[]>("https://localhost:44335/api/User/addForm", new FormModel(this.user, this.children)).subscribe(
+    this.httpClient.post<Result[]>("https://localhost:44335/api/User/addForm", new FormModel(this.user, this.children)).subscribe(
       data => {
         console.log(data);
         this.result = data;
         this.exportExcel();
-        
+
+      },
+      (err:HttpErrorResponse)=>{
+        this.error=err.message;
+        console.log(err);
       }
     )
     myForm.reset();
@@ -74,13 +79,13 @@ export class MyFormComponent implements OnInit {
       const data: Blob = new Blob([buffer], {
         type: EXCEL_TYPE
       });
-     
+
       saver.saveAs(
         data,
         fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
       );
-      
-      
+
+
     });
   }
 
