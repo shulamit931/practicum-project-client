@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DropdownModule } from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -28,8 +27,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     HttpClientModule,
     ReactiveFormsModule,
     DropdownModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: MyRouteReuseStrategy }

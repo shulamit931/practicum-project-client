@@ -1,7 +1,8 @@
-<form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm"  class="form" >
+<form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm" class="form">
     <div>
         <label for="name">first name</label>
-        <input matInput type="text"  class="form-control"  required [(ngModel)]="user.FirstName" name="firstName" #firstName="ngModel">
+        <input matInput type="text" class="form-control" required [(ngModel)]="user.FirstName" name="firstName"
+            #firstName="ngModel">
         <div [hidden]="firstName.valid || !firstName.touched" class="error">
             Name is required
         </div>
@@ -9,7 +10,7 @@
     <div>
         <label for="lastName">last name</label>
         <input type="text" required [(ngModel)]="user.LastName" name="lastName" #lastName="ngModel">
-        <div [hidden]="firstName.valid || !lastName.touched"  class="error">
+        <div [hidden]="firstName.valid || !lastName.touched" class="error">
             last name is required
         </div>
     </div>
@@ -17,7 +18,7 @@
     <div>
         <label for="tz">id number</label>
         <input type="text" pattern="[0-9]{9}" required [(ngModel)]="user.Tz" name="tz" #tz="ngModel">
-        <div [hidden]="tz.valid || !tz.touched"  class="error">
+        <div [hidden]="tz.valid || !tz.touched" class="error">
             id number is required and must has 9 digits
         </div>
     </div>
@@ -25,17 +26,17 @@
     <div>
         <label for="tz">birth date</label>
         <input type="date" required [(ngModel)]="user.BirthDate" name="birthDate" #birthDate="ngModel">
-        <div [hidden]="birthDate.valid ||!birthDate.touched"  class="error">
+        <div [hidden]="birthDate.valid ||!birthDate.touched" class="error">
             birth date is required
         </div>
     </div>
 
     <div>
         <label for="hmo">HMO</label>
-        <select [(ngModel)]="user.HMO" name="hmo" #hmo="ngModel"  [required]="true">
+        <select [(ngModel)]="user.HMO" name="hmo" #hmo="ngModel" [required]="true">
             <option *ngFor="let item of HMO ;let i=index" value="{{i}}">{{item[1]}}</option>
         </select>
-        <div [hidden]="hmo.valid || !hmo.touched"  class="error">
+        <div [hidden]="hmo.valid || !hmo.touched" class="error">
             hmo is required
         </div>
     </div>
@@ -45,57 +46,51 @@
         <select [(ngModel)]="user.Kind" name="kind" #kind="ngModel" required>
             <option *ngFor="let item of Kind;let i=index" value="{{i}}">{{item[1]}}</option>
         </select>
-        <div [hidden]="kind.valid || !kind.touched"  class="error">
+        <div [hidden]="kind.valid || !kind.touched" class="error">
             type is required
         </div>
     </div>
-   
+
 
     <form (ngSubmit)="addChild(childForm)" #childForm="ngForm" class="f">
         <label>child </label>
         <div>
             <label for="name">first name</label>
-            <input type="text" required [(ngModel)]="child.FirstName" name="childFirstName"
-                #childFirstName="ngModel">
-            <div [hidden]="childFirstName.valid || !childFirstName.touched"  class="error">
+            <input type="text" required [(ngModel)]="child.FirstName" name="childFirstName" #childFirstName="ngModel">
+            <div [hidden]="childFirstName.valid || !childFirstName.touched" class="error">
                 first name is required
             </div>
-    
+
         </div>
         <div>
             <label for="lastName">last name</label>
-            <input type="text" required  [(ngModel)]="child.LastName" name="childLastName" #childLastName="ngModel">
-            <div [hidden]="childLastName.valid || !childLastName.touched"  class="error">
+            <input type="text" required [(ngModel)]="child.LastName" name="childLastName" #childLastName="ngModel">
+            <div [hidden]="childLastName.valid || !childLastName.touched" class="error">
                 last name is required
             </div>
         </div>
-    
+
         <div>
             <label for="tz">id number</label>
             <input type="text" pattern="[0-9]{9}" required [(ngModel)]="child.Tz" name="childTz" #childTz="ngModel">
-            <div [hidden]="childTz.valid || !childTz.touched"  class="error">
+            <div [hidden]="childTz.valid || !childTz.touched" class="error">
                 id number is required and must has 9 numbers
             </div>
         </div>
-    
+
         <div>
             <label for="tz">birth date</label>
-            <input type="date" required [(ngModel)]="child.BirthDate" name="childBirthDate"
-                #childBirthDate="ngModel">
-            <div [hidden]="childBirthDate.valid || !childBirthDate.touched"  class="error">
+            <input type="date" required [(ngModel)]="child.BirthDate" name="childBirthDate" #childBirthDate="ngModel">
+            <div [hidden]="childBirthDate.valid || !childBirthDate.touched" class="error">
                 birth date is required
             </div>
         </div>
-    
-        <input type="submit"  value="add child" [disabled]="!childForm.valid">
-    </form>
-    
-    
 
-      
-       
-        <button type="submit" class="btn btn-success" [disabled]="!myForm.valid">Submit</button>
-   
+        <input type="submit" value="add child" [disabled]="!childForm.valid">
+    </form>
+
+    <button type="submit" class="btn btn-success" [disabled]="!myForm.valid">Submit</button>
+
 </form>
 
 <p [hidden]="!error">{{error|json}}</p>

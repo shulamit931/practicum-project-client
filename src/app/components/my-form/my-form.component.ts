@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ChildModel } from 'src/app/models/Child';
 import { FormModel } from 'src/app/models/formModel';
@@ -8,13 +8,14 @@ import { DataService } from 'src/app/data.service';
 
 import * as saver from 'file-saver';
 import { Result } from 'src/app/models/resultModel';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-my-form',
   templateUrl: './my-form.component.html',
   styleUrls: ['./my-form.component.scss']
 })
-export class MyFormComponent implements OnInit {
+export class MyFormComponent implements OnInit, OnDestroy {
 
   user: UserModel = new UserModel();
   child: ChildModel = new ChildModel();
@@ -22,11 +23,14 @@ export class MyFormComponent implements OnInit {
   HMO = Object.entries(EHMO).slice(0, Object.entries(EHMO).length / 2);
   Kind = Object.entries(Ekind).slice(0, Object.entries(Ekind).length / 2);
   result: Result[] = [];
-  download: boolean = false;
-  error: any ;
-
+  error: any;
+  sub: Subscription;
 
   constructor(private httpClient: HttpClient, private dataService: DataService) { }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.user = this.dataService.user;
@@ -40,37 +44,37 @@ export class MyFormComponent implements OnInit {
     this.user.HMO = +this.user.HMO;
     this.user.Kind = +this.user.Kind;
     console.log(this.user);
-    this.httpClient.post<Result[]>("https://localhost:44335/api/User/addForm", new FormModel(this.user, this.children)).subscribe(
-      data => {
-        console.log(data);
-        this.result = data;
-        this.exportExcel();
+    this.sub = this.httpClient.post<Result[]>("https://localhost:44335/api/User/addForm", new FormModel(this.user, this.children)).subscribe(
+      {
+        next: data => {
+          console.log(data);
+          this.result = data;
+          this.exportExcel();
 
-      },
-      (err:HttpErrorResponse)=>{
-        this.error=err.message;
-        console.log(err);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.error = err.message;
+          console.log(err);
+          setTimeout(() => {
+            this.error = null
+          }, 5000);
+        }
       }
     )
     myForm.reset();
-    this.download = true;
-    setTimeout(() => {
-      this.download = false
-    }, 1000);
-
-
   }
 
 
 
   exportExcel() {
     import("xlsx").then(xlsx => {
-      const worksheet = xlsx.utils.json_to_sheet(this.result); // Sale Data
+      const worksheet = xlsx.utils.json_to_sheet(this.result);
       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
       this.saveAsExcelFile(excelBuffer, "poeple");
     });
   }
+
   saveAsExcelFile(buffer: any, fileName: string): void {
     import("file-saver").then(FileSaver => {
       let EXCEL_TYPE =
@@ -84,7 +88,6 @@ export class MyFormComponent implements OnInit {
         data,
         fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
       );
-
 
     });
   }

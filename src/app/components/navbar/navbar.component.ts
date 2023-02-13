@@ -7,11 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  
   links = ['guidelines', 'myForm'];
   activeLink = this.links[0];
-  
-
-  
-
   
 }
