@@ -4,11 +4,16 @@ nav {
   justify-content: center;
   align-items: center;
   margin: 2px;
-  box-shadow: 1px 1px 1px 1px rgb(77, 76, 74);
+  background-color: rgb(254, 215, 171);
 
   * {
     flex: 1;
     font-size: 4vh;
     text-decoration: none;
+    color: rgb(243, 92, 41);
+   
+  }
+  *:hover{
+    color:rgb(144, 85, 17) ;
   }
 }

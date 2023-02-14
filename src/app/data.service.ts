@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ChildModel } from './models/Child';
+import { FormModel } from './models/formModel';
+import { Result } from './models/resultModel';
 import { UserModel } from './models/User';
 
 @Injectable({
@@ -7,9 +10,10 @@ import { UserModel } from './models/User';
 })
 export class DataService {
 
-  user:UserModel=new UserModel();
-  children:ChildModel[]=[];
+  user: UserModel = new UserModel();
+  children: ChildModel[] = [];
   constructor() {
-   
-   }
+
+  }
+
 }

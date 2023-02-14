@@ -10,7 +10,7 @@
     <div>
         <label for="lastName">last name</label>
         <input type="text" required [(ngModel)]="user.LastName" name="lastName" #lastName="ngModel">
-        <div [hidden]="firstName.valid || !lastName.touched" class="error">
+        <div [hidden]="lastName.valid || !lastName.touched" class="error">
             last name is required
         </div>
     </div>
